@@ -1,0 +1,120 @@
+Day2:
+
+Case study1
+db.createCollection("products")
+db.products.insertMany([
+  {
+    name: "iPhone 14",
+    category: "Electronics",
+    price: 75000,
+    stock: 25,
+    brand: "Apple"
+  },
+  {
+    name: "Samsung Galaxy S22",
+    category: "Electronics",
+    price: 65000,
+    stock: 30,
+    brand: "Samsung"
+  },
+  {
+    name: "Dell Laptop",
+    category: "Computers",
+    price: 55000,
+    stock: 15,
+    brand: "Dell"
+  },
+  {
+    name: "HP Pavilion Laptop",
+    category: "Computers",
+    price: 50000,
+    stock: 12,
+    brand: "HP"
+  },
+  {
+    name: "Nike Shoes",
+    category: "Fashion",
+    price: 5000,
+    stock: 50,
+    brand: "Nike"
+  },
+  {
+    name: "Adidas T-shirt",
+    category: "Fashion",
+    price: 1500,
+    stock: 80,
+    brand: "Adidas"
+  },
+  {
+    name: "Sony Headphones",
+    category: "Electronics",
+    price: 3000,
+    stock: 40,
+    brand: "Sony"
+  },
+  {
+    name: "Wooden Dining Table",
+    category: "Furniture",
+    price: 20000,
+    stock: 5,
+    brand: "IKEA"
+  },
+  {
+    name: "Office Chair",
+    category: "Furniture",
+    price: 7000,
+    stock: 20,
+    brand: "Godrej"
+  },
+  {
+    name: "Bluetooth Speaker",
+    category: "Electronics",
+    price: 2500,
+    stock: 60,
+    brand: "JBL"
+  }
+])
+db.products.find()
+db.products.find().pretty()
+db.products.findOne({ name: "iPhone 14" })
+db.products.find({ category: "Electronics" })
+db.products.find({ price: { $lt: 5000 } })
+db.products.find({ price: { $lte: 5000 } })
+db.products.find({ price: { $gt: 5000 } })
+db.products.find({ price: { $gte: 5000 } })
+db.products.find({ price: { $ne: 5000 }})
+db.products.find({ price: { $in: [1000, 2000, 5000] } })
+db.products.find({ price: { $nin: [1000, 2000, 5000] } })
+db.products.find({$and:[{ category: "Electronics"},{price:5000 }]})
+db.products.find({$or: [{ category: "Electronics" },{ brand: "Apple" }]})
+db.products.find({$or: [{ price: { $gt: 5000 } },{ brand: "Samsung" }]})
+db.products.find({price: { $gte: 5000, $lte: 20000 }})
+db.products.find({price: { $not: { $gt: 5000 } }})
+
+
+db.products.updateOne({ _id: ObjectId("6a0fea71b0caf08d72196248") },{ $set: { name: "Boat HeadPhones" } })
+db.products.updateMany({ price: { $lt: 5000 } },{ $set: { stock: 100 } })
+db.products.updateOne({ name: "Nike Shoes" },{ $set: { price: 5500 } })
+db.products.updateMany({ category: "Electronics" },{ $set: { stock: 70 } })
+
+db.products.replaceOne({ name: "Office Chair" },{
+    name: "Gaming Chair",
+    category: "Furniture",
+    price: 12000,
+    stock: 15,
+    brand: "Green Soul"
+  })
+
+db.products.find({},{ name: 1,price:1})
+db.products.find({},{ _id: 0, name: 1, price: 1 })
+db.products.find().limit(5)
+db.products.find().skip(5).limit(5)
+db.products.find().sort({ price: 1 })
+db.products.find().sort({ price: -1 })
+
+db.products.deleteOne({ name:"Nike Shoes"})
+db.products.deleteOne({ price:{$lt:2000}})
+db.products.deleteMany({})
+
+
+
