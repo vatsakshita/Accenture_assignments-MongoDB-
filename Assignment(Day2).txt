@@ -1,4 +1,4 @@
-Assignment(Day2)
+Assignment(Day2-Hospital Management)
 
 db.createCollection("patients")
 { ok: 1 }
