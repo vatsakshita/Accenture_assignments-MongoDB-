@@ -1,0 +1,455 @@
+Assignment(Day2)
+
+db.createCollection("patients")
+{ ok: 1 }
+db.patients.insertMany([
+{ patientName: "Arun", doctor: "Dr. Ravi", department: "Cardiology", age: 45, 
+treatmentCost: 20000, daysAdmitted: 5 },
+{ patientName: "Meena", doctor: "Dr. Kumar", department: "Neurology", age: 50, 
+treatmentCost: 30000, daysAdmitted: 7 },
+{ patientName: "Raj", doctor: "Dr. Ravi", department: "Cardiology", age: 60, 
+treatmentCost: 15000, daysAdmitted: 3 },
+{ patientName: "Divya", doctor: "Dr. Mehta", department: "Orthopedics", age: 35, 
+treatmentCost: 10000, daysAdmitted: 2 },
+{ patientName: "Kiran", doctor: "Dr. Kumar", department: "Neurology", age: 40, 
+treatmentCost: 25000, daysAdmitted: 6 },
+{ patientName: "Sneha", doctor: "Dr. Mehta", department: "Orthopedics", age: 30, 
+treatmentCost: 8000, daysAdmitted: 2 },
+{ patientName: "Vijay", doctor: "Dr. Ravi", department: "Cardiology", age: 55, 
+treatmentCost: 22000, daysAdmitted: 4 },
+{ patientName: "Priya", doctor: "Dr. Kumar", department: "Neurology", age: 48, 
+treatmentCost: 27000, daysAdmitted: 5 },
+{ patientName: "Anil", doctor: "Dr. Mehta", department: "Orthopedics", age: 52, 
+treatmentCost: 12000, daysAdmitted: 3 },
+{ patientName: "Riya", doctor: "Dr. Ravi", department: "Cardiology", age: 29, 
+treatmentCost: 18000, daysAdmitted: 4 }
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a11d900cb24394af5f7cd06'),
+    '1': ObjectId('6a11d900cb24394af5f7cd07'),
+    '2': ObjectId('6a11d900cb24394af5f7cd08'),
+    '3': ObjectId('6a11d900cb24394af5f7cd09'),
+    '4': ObjectId('6a11d900cb24394af5f7cd0a'),
+    '5': ObjectId('6a11d900cb24394af5f7cd0b'),
+    '6': ObjectId('6a11d900cb24394af5f7cd0c'),
+    '7': ObjectId('6a11d900cb24394af5f7cd0d'),
+    '8': ObjectId('6a11d900cb24394af5f7cd0e'),
+    '9': ObjectId('6a11d900cb24394af5f7cd0f')
+  }
+}
+//Find all patients whose treatment cost is greater than 20,000 and display only their name and department
+db.patients.aggregate([
+  {$match: {treatmentCost: { $gt: 20000 }}},
+  {$project: {_id: 0,patientName: 1,department: 1}}
+])
+{
+  patientName: 'Meena',
+  department: 'Neurology'
+}
+{
+  patientName: 'Kiran',
+  department: 'Neurology'
+}
+{
+  patientName: 'Vijay',
+  department: 'Cardiology'
+}
+{
+  patientName: 'Priya',
+  department: 'Neurology'
+}
+//List all patients sorted by treatment cost in descending order
+db.patients.aggregate([
+  {$sort: {treatmentCost: -1}}
+])
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd07'),
+  patientName: 'Meena',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 50,
+  treatmentCost: 30000,
+  daysAdmitted: 7
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0d'),
+  patientName: 'Priya',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 48,
+  treatmentCost: 27000,
+  daysAdmitted: 5
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0a'),
+  patientName: 'Kiran',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 40,
+  treatmentCost: 25000,
+  daysAdmitted: 6
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0c'),
+  patientName: 'Vijay',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 55,
+  treatmentCost: 22000,
+  daysAdmitted: 4
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd06'),
+  patientName: 'Arun',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 45,
+  treatmentCost: 20000,
+  daysAdmitted: 5
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0f'),
+  patientName: 'Riya',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 29,
+  treatmentCost: 18000,
+  daysAdmitted: 4
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd08'),
+  patientName: 'Raj',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 60,
+  treatmentCost: 15000,
+  daysAdmitted: 3
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0e'),
+  patientName: 'Anil',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 52,
+  treatmentCost: 12000,
+  daysAdmitted: 3
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd09'),
+  patientName: 'Divya',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 35,
+  treatmentCost: 10000,
+  daysAdmitted: 2
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0b'),
+  patientName: 'Sneha',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 30,
+  treatmentCost: 8000,
+  daysAdmitted: 2
+}
+//Display the first 5 patient records
+db.patients.aggregate([
+  {$limit: 5}
+])
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd06'),
+  patientName: 'Arun',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 45,
+  treatmentCost: 20000,
+  daysAdmitted: 5
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd07'),
+  patientName: 'Meena',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 50,
+  treatmentCost: 30000,
+  daysAdmitted: 7
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd08'),
+  patientName: 'Raj',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 60,
+  treatmentCost: 15000,
+  daysAdmitted: 3
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd09'),
+  patientName: 'Divya',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 35,
+  treatmentCost: 10000,
+  daysAdmitted: 2
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0a'),
+  patientName: 'Kiran',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 40,
+  treatmentCost: 25000,
+  daysAdmitted: 6
+}
+//Skip first 3 patients and display the remaining records
+db.patients.aggregate([
+  {$skip: 3}
+])
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd09'),
+  patientName: 'Divya',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 35,
+  treatmentCost: 10000,
+  daysAdmitted: 2
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0a'),
+  patientName: 'Kiran',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 40,
+  treatmentCost: 25000,
+  daysAdmitted: 6
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0b'),
+  patientName: 'Sneha',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 30,
+  treatmentCost: 8000,
+  daysAdmitted: 2
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0c'),
+  patientName: 'Vijay',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 55,
+  treatmentCost: 22000,
+  daysAdmitted: 4
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0d'),
+  patientName: 'Priya',
+  doctor: 'Dr. Kumar',
+  department: 'Neurology',
+  age: 48,
+  treatmentCost: 27000,
+  daysAdmitted: 5
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0e'),
+  patientName: 'Anil',
+  doctor: 'Dr. Mehta',
+  department: 'Orthopedics',
+  age: 52,
+  treatmentCost: 12000,
+  daysAdmitted: 3
+}
+{
+  _id: ObjectId('6a11d900cb24394af5f7cd0f'),
+  patientName: 'Riya',
+  doctor: 'Dr. Ravi',
+  department: 'Cardiology',
+  age: 29,
+  treatmentCost: 18000,
+  daysAdmitted: 4
+}
+//Find patients from the Cardiology department and display only their names
+db.patients.aggregate([
+  {$match: {department: "Cardiology"}},
+  {$project: {_id: 0,patientName: 1}}
+])
+{
+  patientName: 'Arun'
+}
+{
+  patientName: 'Raj'
+}
+{
+  patientName: 'Vijay'
+}
+{
+  patientName: 'Riya'
+}
+//Find total treatment cost per department
+db.patients.aggregate([
+  {$group: {_id: "$department",totalTreatmentCost: {$sum: "$treatmentCost"}}}
+])
+{
+  _id: 'Neurology',
+  totalTreatmentCost: 82000
+}
+{
+  _id: 'Cardiology',
+  totalTreatmentCost: 75000
+}
+{
+  _id: 'Orthopedics',
+  totalTreatmentCost: 30000
+}
+//Find average treatment cost per doctor and display results in ascending order
+db.patients.aggregate([
+  {$group: {_id: "$doctor",averageTreatmentCost: {$avg: "$treatmentCost"}}},
+  {$sort: {averageTreatmentCost: 1}}
+])
+{
+  _id: 'Dr. Mehta',
+  averageTreatmentCost: 10000
+}
+{
+  _id: 'Dr. Ravi',
+  averageTreatmentCost: 18750
+}
+{
+  _id: 'Dr. Kumar',
+  averageTreatmentCost: 27333.333333333332
+}
+//Find departments where total treatment cost is greater than 50,000
+db.patients.aggregate([
+  {$group: {_id: "$department",totalTreatmentCost: {$sum: "$treatmentCost"}}},
+  {$match: {totalTreatmentCost: { $gt: 50000 }}}
+])
+{
+  _id: 'Cardiology',
+  totalTreatmentCost: 75000
+}
+{
+  _id: 'Neurology',
+  totalTreatmentCost: 82000
+}
+//Find number of patients in each department and sort the result in descending order
+db.patients.aggregate([
+  {$group: {_id: "$department",patientCount: {$sum: 1}}},
+  {$sort: {patientCount: -1}}
+])
+{
+  _id: 'Cardiology',
+  patientCount: 4
+}
+{
+  _id: 'Neurology',
+  patientCount: 3
+}
+{
+  _id: 'Orthopedics',
+  patientCount: 3
+}
+//Find top 3 doctors with highest total treatment cost
+db.patients.aggregate([
+  {$group: {_id: "$doctor",totalTreatmentCost: {$sum: "$treatmentCost"}}},
+  {$sort: {totalTreatmentCost: -1}},
+  {$limit: 3}
+])
+{
+  _id: 'Dr. Kumar',
+  totalTreatmentCost: 82000
+}
+{
+  _id: 'Dr. Ravi',
+  totalTreatmentCost: 75000
+}
+{
+  _id: 'Dr. Mehta',
+  totalTreatmentCost: 30000
+}
+//Find patients whose age is greater than 40, group them by department, and count number of patients
+db.patients.aggregate([
+  {$match: {age: { $gt: 40 }}},
+  {$group: {_id: "$department",patientCount: {$sum: 1}}}
+])
+{
+  _id: 'Neurology',
+  patientCount: 2
+}
+{
+  _id: 'Cardiology',
+  patientCount: 3
+}
+{
+  _id: 'Orthopedics',
+  patientCount: 1
+}
+//Find average treatment cost per department, display only department and average cost, and sort descending
+db.patients.aggregate([
+  {$group: {_id: "$department",averageCost: {$avg: "$treatmentCost"}}},
+  {$project: {_id: 0,department: "$_id",averageCost: 1}},
+  {$sort: {averageCost: -1}}
+])
+{
+  averageCost: 27333.333333333332,
+  department: 'Neurology'
+}
+{
+  averageCost: 18750,
+  department: 'Cardiology'
+}
+{
+  averageCost: 10000,
+  department: 'Orthopedics'
+}
+//Find departments having more than 2 patients admitted
+db.patients.aggregate([
+  {$group: {_id: "$department",patientCount: {$sum: 1}}},
+  {$match: {patientCount: { $gt: 2 }}}
+])
+{
+  _id: 'Orthopedics',
+  patientCount: 3
+}
+{
+  _id: 'Cardiology',
+  patientCount: 4
+}
+{
+  _id: 'Neurology',
+  patientCount: 3
+}
+//Display top 3 departments based on highest total treatment cost after skipping the first one
+db.patients.aggregate([
+  {$group: {_id: "$department",totalTreatmentCost: {$sum: "$treatmentCost"}}},
+  {$sort: {totalTreatmentCost: -1}},
+  {$skip: 1},
+  {$limit: 3}
+])
+{
+  _id: 'Cardiology',
+  totalTreatmentCost: 75000
+}
+{
+  _id: 'Orthopedics',
+  totalTreatmentCost: 30000
+}
+//Find doctors treating patients with cost greater than 10,000, calculate total cost, and show only top 2 doctors
+db.patients.aggregate([
+  {$match: {treatmentCost: { $gt: 10000 }}},
+  {$group: {_id: "$doctor",totalTreatmentCost: {$sum: "$treatmentCost"}}},
+  {$sort: {totalTreatmentCost: -1}},
+  {$limit: 2}
+])
+{
+  _id: 'Dr. Kumar',
+  totalTreatmentCost: 82000
+}
+{
+  _id: 'Dr. Ravi',
+  totalTreatmentCost: 75000
+}
+
+
+
